@@ -1,0 +1,33 @@
+ex501 = read.table("EX501.txt")
+wgthgt = read.table("wgthgt.txt", header = T)
+
+names(ex501) = c("age","weight")
+
+#Defining log10 z
+ex501["z"] = log10(ex501$weight)
+
+par(mfcol=c(2,1))
+
+mod1 = lm(formula= ex501$age~ex501$weight)
+plot(ex501$age~ex501$weight,xlab = "Age",ylab = "Weight")
+abline(mod1,col="red")
+summary(mod1)
+confint(mod1,level=0.95)
+confint(mod1,level=0.9)
+anova(mod1)
+
+
+#For model 2 
+mod2 = lm(ex501$age~ex501$z)
+plot(ex501$age~ex501$z, xlab = "Age",ylab = "log10 Weight")
+abline(mod2,col="red")
+summary(mod2)
+confint(mod2,level=0.95)
+confint(mod2,level=0.9)
+anova(mod2)
+
+
+
+
+
+
